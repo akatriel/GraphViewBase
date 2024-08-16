@@ -109,7 +109,7 @@ namespace GraphViewBase {
         protected internal GraphElementContainer ContentContainer { get; }
         internal ITransform ViewTransform => ContentContainer.transform;
         
-        public bool IsFocusedElementNullOrNotBindable => focusController == null || focusController.focusedElement == null || !(focusController.focusedElement is IBindable);
+        public bool IsFocusedElementNullOrNotBindable => focusController == null || focusController.focusedElement == null || focusController.focusedElement is not IBindable;
 
         #endregion
 
@@ -275,7 +275,7 @@ namespace GraphViewBase {
         }
         #endregion
 
-        #region Event Handlers
+        #region Drag Event Handlers
         private readonly Marquee m_Marquee;
         private bool m_DraggingView;
         private bool m_DraggingMarquee;
@@ -519,7 +519,7 @@ namespace GraphViewBase {
 
         #region Framing
         protected void Frame() {
-            if (IsFocusedElementNullOrNotBindable) {
+            if (!IsFocusedElementNullOrNotBindable) {
                 // Construct rect for selected and unselected elements
                 Rect rectToFitSelected = ContentContainer.layout;
                 Rect rectToFitUnselected = rectToFitSelected;
